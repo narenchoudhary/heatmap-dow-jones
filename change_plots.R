@@ -16,7 +16,7 @@ ChangeHeatmap <- function(yeararg){
     filter(year == as.numeric(yeararg))
   
   ggplot(djindex.close.small, aes(x = week, y = wday)) + 
-    geom_tile(aes(fill = change), color = 'black') +
+    geom_tile(aes(fill = change), color = 'black', size = 0.25) +
     scale_fill_gradientn(colors = ccodes, na.value = 'transparent') +
     theme_bw() +
     coord_equal() +

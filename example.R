@@ -36,7 +36,8 @@ p <- ggplot(example, aes(x = week, y = wday, fill = change)) +
         panel.grid = element_blank(),
         panel.background = element_blank(),
         legend.position = 'none',
-        axis.ticks = element_blank()) +
+        axis.ticks = element_blank(),
+        plot.title=element_text(hjust=0)) +
   labs(x = NULL, y = NULL, title = paste('Year', unique(example$year))) +
   scale_x_continuous(expand = c(0,0), breaks = seq(0, 54, by = 1)) +
   scale_y_discrete(limits = rev(c('Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat')))
