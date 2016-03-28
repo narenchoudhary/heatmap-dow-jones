@@ -1,11 +1,12 @@
 # Prepare data
 
-library(plyr)
-library(dplyr)
-library(lubridate)
-library(zoo)
-library(quantmod)
-library(ggplot2)
+library(plyr) # Data manipulation
+library(dplyr) # Data manipulation
+library(lubridate) # Date Handling
+library(zoo) # Date Handling
+library(quantmod) # For downloading data from Yahoo! finance
+library(ggplot2) 
+
 
 if(!exists("DJI"))
   getSymbols("^DJI",src="yahoo", from='1995-01-01', to='2008-12-31')

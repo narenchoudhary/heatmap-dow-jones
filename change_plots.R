@@ -4,13 +4,20 @@ library(plyr)
 library(dplyr)
 
 
-YearHeatmapChange <- function(yeararg){
+# color code
+ccodes <- c('#d73027', '#fc8d59', '#fee08b', '#d9ef8b', '#91cf60', '#1a9850')
+
+
+# function which plots daily percentage change in 
+# Dow Jones Ind. Index for every year
+ChangeHeatmap <- function(yeararg){
+  
   djindex.close.small <- djindex.close %>% 
     filter(year == as.numeric(yeararg))
+  
   ggplot(djindex.close.small, aes(x = week, y = wday)) + 
     geom_tile(aes(fill = change), color = 'black') +
-    # scale_fill_gradient2(low='#d73027', high = '#1a9850', na.value = 'white') +
-    scale_fill_gradientn(colors = ccodes, na.value = 'white') +
+    scale_fill_gradientn(colors = ccodes, na.value = 'transparent') +
     theme_bw() +
     coord_equal() +
     labs(x = NULL, y = as.character(yeararg)) +
@@ -25,9 +32,13 @@ YearHeatmapChange <- function(yeararg){
     scale_y_discrete(limits = rev(c('Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat')))
 }
 
-ccodes <- c('#d73027', '#fc8d59', '#fee08b', '#d9ef8b', '#91cf60', '#1a9850')
+# list of years
 all_years <- unique(djindex.close$year)
 
-lapply(all_years, YearHeatmapChange) -> plot_list
+# run ChangeHeatmap function for every year 
+# and add generated plot to plot_list
+lapply(all_years, ChangeHeatmap) -> plot_list
+
+# render heatmaps in grid of 2 columns
 plot_list[["ncol"]] = 2
 do.call(grid.arrange, plot_list)
